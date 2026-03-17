@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MRI Datasets — NeuroDetect</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/sidebar') %>
+  <div class="main">
+    <%- include('../partials/topbar', { title: 'MRI Datasets' }) %>
+    <div class="content">
+      <% if (messages.success) { %>
+        <div class="alert alert-success"><%= messages.success %></div>
+      <% } %>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div>
+          <div class="section-header">
+            <h2>All Datasets</h2>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Dataset Name</th>
+                <th>Type</th>
+                <th>No. of Images</th>
+                <th>MRI Type</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% datasets.forEach(d => { %>
+              <tr>
+                <td><%= d.name %></td>
+                <td><%= d.type %></td>
+                <td><%= d.numImages %></td>
+                <td><%= d.mriType || '—' %></td>
+                <td>
+                  <form action="/datasets/<%= d._id %>?_method=DELETE" method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this dataset?')">
+                    <button class="btn btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              <% }) %>
+              <% if (datasets.length === 0) { %>
+                <tr>
+                  <td colspan="5" style="text-align:center; color:#64748b; padding:28px;">
+                    No datasets added yet.
+                  </td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <div class="section-header">
+            <h2>Add New Dataset</h2>
+          </div>
+          <div class="form-box">
+            <form action="/datasets" method="POST" enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Dataset Name</label>
+                <input type="text" name="name" required
+                  placeholder="e.g. BRATS 2018">
+              </div>
+              <div class="form-group">
+                <label>Dataset Type</label>
+                <input type="text" name="type" required
+                  placeholder="e.g. Brain MRI Segmentation">
+              </div>
+              <div class="form-group">
+                <label>Number of Images</label>
+                <input type="number" name="numImages" required
+                  placeholder="e.g. 1992">
+              </div>
+              <div class="form-group">
+                <label>MRI Type</label>
+                <input type="text" name="mriType"
+                  placeholder="e.g. T1, T2, FLAIR, T1CE">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea name="description"
+                  placeholder="e.g. Subset of BRATS 2018 dataset used for brain tumor segmentation and classification. Contains 498 NIfTI files with 1,992 MRI images."></textarea>
+              </div>
+              <div class="form-group">
+                <label>Upload Dataset File</label>
+                <input type="file" name="datasetFile">
+              </div>
+              <button type="submit" class="btn btn-primary">Add Dataset</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register — NeuroDetect</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0f1117; color: #e0e0e0; font-family: 'Segoe UI', sans-serif;
+           display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { background: #1a1d27; padding: 40px; border-radius: 12px; width: 400px;
+            box-shadow: 0 0 30px rgba(99,102,241,0.2); }
+    .brand { text-align: center; font-size: 1.8rem; font-weight: 800; color: #6366f1;
+             letter-spacing: 2px; margin-bottom: 4px; }
+    .subtitle { text-align: center; font-size: 0.8rem; color: #64748b; margin-bottom: 28px; }
+    h2 { text-align: center; color: #818cf8; margin-bottom: 24px; font-size: 1.3rem; }
+    label { display: block; margin-bottom: 6px; font-size: 0.85rem; color: #94a3b8; }
+    input, select { width: 100%; padding: 10px 14px; background: #0f1117; border: 1px solid #2d3148;
+            border-radius: 8px; color: #e0e0e0; margin-bottom: 18px; font-size: 0.95rem; }
+    input:focus, select:focus { outline: none; border-color: #6366f1; }
+    button { width: 100%; padding: 11px; background: #6366f1; border: none;
+             border-radius: 8px; color: white; font-size: 1rem; cursor: pointer; }
+    button:hover { background: #4f46e5; }
+    .link { text-align: center; margin-top: 16px; font-size: 0.85rem; }
+    .link a { color: #818cf8; text-decoration: none; }
+    .alert { background: #3b1f1f; color: #f87171; padding: 10px; border-radius: 8px;
+             margin-bottom: 16px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">NeuroDetect</div>
+    <div class="subtitle">Brain Tumor Detection and Classification Research Platform</div>
+    <h2>Create Account</h2>
+    <% if (messages.error) { %><div class="alert"><%= messages.error %></div><% } %>
+    <form action="/auth/register" method="POST">
+      <label>Full Name</label>
+      <input type="text" name="name" required placeholder="Dr. Jane Smith">
+      <label>Email</label>
+      <input type="email" name="email" required placeholder="you@example.com">
+      <label>Password</label>
+      <input type="password" name="password" required placeholder="••••••••">
+      <label>Role</label>
+      <select name="role">
+        <option value="researcher">Researcher</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button type="submit">Register</button>
+    </form>
+    <div class="link">Already have an account? <a href="/auth/login">Login</a></div>
+  </div>
+</body>
+</html>

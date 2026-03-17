@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= paper.title %> — NeuroDetect</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/sidebar') %>
+  <div class="main">
+    <%- include('../partials/topbar', { title: 'Paper Detail' }) %>
+    <div class="content">
+      <div class="form-box" style="max-width:900px">
+        <h2 style="margin-bottom:8px; color:#818cf8"><%= paper.title %></h2>
+        <p style="color:#64748b; margin-bottom:20px; font-size:0.9rem;">
+          By <%= paper.authors %> &bull; <%= paper.year %>
+        </p>
+        <div style="background:#0f1117; border-radius:8px; padding:16px; margin-bottom:20px;">
+          <p style="line-height:1.8; font-size:0.9rem; color:#cbd5e1"><%= paper.abstract %></p>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;">
+          <div style="background:#0f1117; padding:12px 16px; border-radius:8px;">
+            <span style="color:#64748b; font-size:0.8rem;">Category</span>
+            <p style="margin-top:4px"><%= paper.category || '—' %></p>
+          </div>
+          <div style="background:#0f1117; padding:12px 16px; border-radius:8px;">
+            <span style="color:#64748b; font-size:0.8rem;">Dataset Used</span>
+            <p style="margin-top:4px"><%= paper.datasetUsed || '—' %></p>
+          </div>
+          <div style="background:#0f1117; padding:12px 16px; border-radius:8px;">
+            <span style="color:#64748b; font-size:0.8rem;">Model Used</span>
+            <p style="margin-top:4px"><%= paper.modelUsed %></p>
+          </div>
+          <div style="background:#0f1117; padding:12px 16px; border-radius:8px;">
+            <span style="color:#64748b; font-size:0.8rem;">Accuracy</span>
+            <p style="margin-top:4px; color:#22d3ee; font-weight:700"><%= paper.accuracy || '—' %></p>
+          </div>
+        </div>
+        <% if (paper.pdfFile) { %>
+          <h3 style="margin-bottom:12px; color:#94a3b8; font-size:0.95rem;">PDF Preview</h3>
+          <iframe src="/uploads/<%= paper.pdfFile %>" width="100%" height="600px"
+            style="border-radius:8px; border:1px solid #2d3148"></iframe>
+        <% } %>
+        <div style="margin-top:20px; display:flex; gap:8px;">
+          <a href="/papers/<%= paper._id %>/edit" class="btn btn-primary">Edit Paper</a>
+          <a href="/papers" class="btn btn-secondary">Back to Papers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

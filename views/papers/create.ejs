@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Paper — NeuroDetect</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/sidebar') %>
+  <div class="main">
+    <%- include('../partials/topbar', { title: 'Upload Research Paper' }) %>
+    <div class="content">
+      <% if (messages.error) { %>
+        <div class="alert alert-error"><%= messages.error %></div>
+      <% } %>
+      <div class="form-box">
+        <form action="/papers" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" required
+              placeholder="e.g. Deep Learning Based Brain Tumor Detection and Classification">
+          </div>
+          <div class="form-group">
+            <label>Authors</label>
+            <input type="text" name="authors" required
+              placeholder="e.g. Nadim Mahmud Dipu, Sifatul Alam Shohan">
+          </div>
+          <div class="form-group">
+            <label>Abstract</label>
+            <textarea name="abstract" required
+              placeholder="Enter the paper abstract..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Year</label>
+            <input type="number" name="year" value="2021">
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category"
+              placeholder="e.g. Brain Tumor Detection and Classification">
+          </div>
+          <div class="form-group">
+            <label>Dataset Used</label>
+            <input type="text" name="datasetUsed"
+              placeholder="e.g. BRATS 2018">
+          </div>
+          <div class="form-group">
+            <label>Model Used</label>
+            <select name="modelUsed">
+              <option value="CNN">CNN (FastAI)</option>
+              <option value="YOLOv5">YOLOv5</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Accuracy (%)</label>
+            <input type="text" name="accuracy"
+              placeholder="e.g. 95.78%">
+          </div>
+          <div class="form-group">
+            <label>Upload PDF</label>
+            <input type="file" name="pdfFile" accept=".pdf">
+          </div>
+          <button type="submit" class="btn btn-primary">Upload Paper</button>
+          <a href="/papers" class="btn btn-secondary" style="margin-left:8px">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

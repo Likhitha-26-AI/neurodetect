@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard — NeuroDetect</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/sidebar') %>
+  <div class="main">
+    <%- include('../partials/topbar', { title: 'Research Dashboard' }) %>
+    <div class="content">
+
+      <div class="cards">
+        <div class="card-stat">
+          <div>
+            <div class="num"><%= totalPapers %></div>
+            <div class="lbl">Research Papers</div>
+          </div>
+        </div>
+        <div class="card-stat">
+          <div>
+            <div class="num"><%= totalDatasets %></div>
+            <div class="lbl">MRI Datasets</div>
+          </div>
+        </div>
+        <div class="card-stat">
+          <div>
+            <div class="num"><%= totalModels %></div>
+            <div class="lbl">Trained Models</div>
+          </div>
+        </div>
+        <div class="card-stat">
+          <div>
+            <div class="num"><%= totalResearchers %></div>
+            <div class="lbl">Researchers</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <div style="background:#1a1d27; border:1px solid #2d3148; border-radius:12px; padding:16px 24px;">
+          <p style="font-size:0.85rem; color:#94a3b8; line-height:1.8;">
+            This platform manages research data for the study
+            <strong style="color:#818cf8">"Deep Learning Based Brain Tumor Detection and Classification"</strong>.
+            The study was conducted on the BRATS 2018 dataset containing 1,992 Brain MRI scans.
+            Two models were evaluated — YOLOv5 for object detection achieving
+            <strong style="color:#22d3ee">85.95% accuracy</strong> and FastAI CNN for classification achieving
+            <strong style="color:#22d3ee">95.78% accuracy</strong>.
+          </p>
+        </div>
+      </div>
+
+      <div class="charts">
+        <div class="chart-box">
+          <h3>Model Accuracy Comparison — YOLOv5 vs FastAI CNN</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>BRATS 2018 Dataset Distribution</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+      </div>
+
+      <div style="margin-top:24px; display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+        <div class="chart-box">
+          <h3>FastAI CNN — Performance Metrics</h3>
+          <table style="margin-top:8px">
+            <thead>
+              <tr><th>Metric</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Epochs</td><td>100</td></tr>
+              <tr><td>Accuracy</td><td>95.78%</td></tr>
+              <tr><td>Precision</td><td>96.70%</td></tr>
+              <tr><td>Recall</td><td>95.65%</td></tr>
+              <tr><td>F1 Score</td><td>96.17%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="chart-box">
+          <h3>YOLOv5 — Performance Metrics</h3>
+          <table style="margin-top:8px">
+            <thead>
+              <tr><th>Metric</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Epochs</td><td>250</td></tr>
+              <tr><td>Accuracy</td><td>85.95%</td></tr>
+              <tr><td>Precision</td><td>92.67%</td></tr>
+              <tr><td>Recall</td><td>84.33%</td></tr>
+              <tr><td>F1 Score</td><td>88.30%</td></tr>
+              <tr><td>mAP@50</td><td>89.30%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['YOLOv5 (Object Detection)', 'FastAI CNN (Classification)'],
+        datasets: [{
+          label: 'Accuracy (%)',
+          data: [85.95, 95.78],
+          backgroundColor: ['#6366f1', '#22d3ee'],
+          borderRadius: 8
+        }]
+      },
+      options: {
+        plugins: { legend: { labels: { color: '#94a3b8' } } },
+        scales: {
+          y: {
+            ticks: { color: '#94a3b8' },
+            grid: { color: '#2d3148' },
+            min: 0, max: 100
+          },
+          x: {
+            ticks: { color: '#94a3b8' },
+            grid: { color: '#2d3148' }
+          }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Tumor Present (Yes)', 'No Tumor (No)'],
+        datasets: [{
+          data: [273, 225],
+          backgroundColor: ['#6366f1', '#22d3ee']
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { labels: { color: '#94a3b8' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

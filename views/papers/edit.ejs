@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Paper — NeuroDetect</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/sidebar') %>
+  <div class="main">
+    <%- include('../partials/topbar', { title: 'Edit Research Paper' }) %>
+    <div class="content">
+      <div class="form-box">
+        <form action="/papers/<%= paper._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="title" value="<%= paper.title %>" required>
+          </div>
+          <div class="form-group">
+            <label>Authors</label>
+            <input type="text" name="authors" value="<%= paper.authors %>">
+          </div>
+          <div class="form-group">
+            <label>Abstract</label>
+            <textarea name="abstract"><%= paper.abstract %></textarea>
+          </div>
+          <div class="form-group">
+            <label>Year</label>
+            <input type="number" name="year" value="<%= paper.year %>">
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <input type="text" name="category" value="<%= paper.category %>">
+          </div>
+          <div class="form-group">
+            <label>Dataset Used</label>
+            <input type="text" name="datasetUsed" value="<%= paper.datasetUsed %>">
+          </div>
+          <div class="form-group">
+            <label>Model Used</label>
+            <select name="modelUsed">
+              <option value="CNN" <%= paper.modelUsed === 'CNN' ? 'selected' : '' %>>CNN (FastAI)</option>
+              <option value="YOLOv5" <%= paper.modelUsed === 'YOLOv5' ? 'selected' : '' %>>YOLOv5</option>
+              <option value="Other" <%= paper.modelUsed === 'Other' ? 'selected' : '' %>>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Accuracy</label>
+            <input type="text" name="accuracy" value="<%= paper.accuracy %>">
+          </div>
+          <div class="form-group">
+            <label>Replace PDF (optional)</label>
+            <input type="file" name="pdfFile" accept=".pdf">
+          </div>
+          <button type="submit" class="btn btn-primary">Update Paper</button>
+          <a href="/papers" class="btn btn-secondary" style="margin-left:8px">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

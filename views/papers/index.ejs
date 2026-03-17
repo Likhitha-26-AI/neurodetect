@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Research Papers — NeuroDetect</title>
+  <%- include('../partials/head') %>
+</head>
+<body>
+  <%- include('../partials/sidebar') %>
+  <div class="main">
+    <%- include('../partials/topbar', { title: 'Research Papers' }) %>
+    <div class="content">
+      <% if (messages.success) { %>
+        <div class="alert alert-success"><%= messages.success %></div>
+      <% } %>
+      <div class="section-header">
+        <h2>All Research Papers</h2>
+        <a href="/papers/create" class="btn btn-primary">Upload New Paper</a>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Year</th>
+            <th>Dataset Used</th>
+            <th>Model</th>
+            <th>Accuracy</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% papers.forEach(p => { %>
+          <tr>
+            <td><%= p.title %></td>
+            <td><%= p.authors %></td>
+            <td><%= p.year %></td>
+            <td><%= p.datasetUsed || '—' %></td>
+            <td>
+              <span class="badge <%= p.modelUsed === 'CNN' ? 'badge-cnn' : p.modelUsed === 'YOLOv5' ? 'badge-yolo' : 'badge-other' %>">
+                <%= p.modelUsed %>
+              </span>
+            </td>
+            <td><%= p.accuracy || '—' %></td>
+            <td style="display:flex; gap:6px;">
+              <a href="/papers/<%= p._id %>" class="btn btn-secondary">View</a>
+              <a href="/papers/<%= p._id %>/edit" class="btn btn-primary">Edit</a>
+              <form action="/papers/<%= p._id %>?_method=DELETE" method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this paper?')">
+                <button class="btn btn-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+          <% if (papers.length === 0) { %>
+            <tr>
+              <td colspan="7" style="text-align:center; color:#64748b; padding:28px;">
+                No research papers uploaded yet.
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
