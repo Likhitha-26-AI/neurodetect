@@ -7,7 +7,7 @@
 ![Hugging Face](https://img.shields.io/badge/Model-HuggingFace-yellow)
 ![Brain MRI](https://img.shields.io/badge/Dataset-Brain_MRI-red)
 
-Neuro Detect is a full-stack AI-powered brain MRI classification platform designed to assist in brain tumor detection and medical research management. The system leverages a Hugging Face deep learning model to classify MRI scans into four categories—Glioma, Meningioma, Pituitary Tumor, and No Tumor—through an intuitive web interface. In addition to prediction capabilities, the platform provides modules for research paper management, dataset organization, AI model tracking, user authentication, and analytics, creating a centralized environment for AI-driven healthcare research and clinical decision support.
+Neuro Detect is a full-stack AI-powered brain MRI classification platform designed to assist in brain tumor detection and medical research management. The system integrates a pretrained Hugging Face brain tumor classification model to classify MRI scans into four categories—Glioma, Meningioma, Pituitary Tumor, and No Tumor—through an intuitive web interface. In addition to prediction capabilities, the platform provides modules for research paper management, dataset organization, AI model tracking, user authentication, and analytics.
 
 ## Features
 
